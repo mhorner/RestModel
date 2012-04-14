@@ -1,0 +1,6 @@
+This is a work in progress.
+
+The intent of this RestModel implementation for Sencha Touch based applications
+is to provide a way of sending small datasets using Rest.  When a specific
+piece of information is requested and a 'uri' field is set, it will attempt
+to auto-populate the rest of the fields in the store.  
