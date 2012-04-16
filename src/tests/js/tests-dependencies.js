@@ -21,7 +21,8 @@ yepnope({
         'http://localhost/~matt/3rdparty/touch-2.0.0/bundled/resources/css/apple-200.css',
         '../js/data/Uri.js',
         '../js/data/RestModel.js',
-        'js/TestRestModel.js',
+        'js/models/TestPersonModel.js',
+        'js/models/TestInterestsModel.js',
         'js/testsetup.js',
         'js/testcases-UriType.js',
         'js/testcases-RestModel.js'

@@ -1,4 +1,4 @@
-Ext.define("TestRestModel", {
+Ext.define("TestPersonModel", {
     extend: "Ext.ux.data.RestModel",
     
     config: {
@@ -9,6 +9,12 @@ Ext.define("TestRestModel", {
              {name: 'uri', type: Ext.data.Types.Uri},
              {name: 'address', type: 'string'},
              {name: 'phone', type: 'string'}
-        ]
+        ],
+        hasMany: {
+            model: 'TestInterestsModel', 
+            name: 'getInterests', 
+            autoLoad: true, 
+            foreignKey: 'person_id'
+        }
     }
 });

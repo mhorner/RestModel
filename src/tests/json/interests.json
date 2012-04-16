@@ -1,0 +1,12 @@
+[
+    {
+        id: 1,
+        person_id: 0,
+        uri: 'json/interests1.json'
+    },
+    {
+        id: 2,
+        person_id: 0,
+        uri: 'json/interests2.json'
+    }
+]

@@ -3,18 +3,24 @@ Ext.define('Ext.ux.data.RestModel', {
     extend: 'Ext.data.Model',
     mixin: ['Ext.mixin.Observable'],
     
+    /** events
+     */
+    BEGIN_EXPANDING: 'beginExpanding',
+    AFTER_EXPANDING: 'afterExpanding',
+    
     config: {
-        expanding: false
+        expanding: false,
+        $expanded: false
     },
     
-    get: function(fieldName) {
-        var value = this.callParent(arguments);
+    get: function(fN) {
+        var me = this, v = me.callParent(arguments);
         
-        if (fieldName !== "uri" && value === null) {
-            this.expand();
+        if (fN !== "uri" && Ext.isEmpty(v) && !me.$expanded) {
+            me.expand();
             return undefined;
         }
-        return value;
+        return v;
     },
     
     isExpanding: function() {
@@ -22,38 +28,38 @@ Ext.define('Ext.ux.data.RestModel', {
     },
     
     applyExpanding: function(v) {
-        console.log("firing event " + (v ? "beginExpanding" : "afterExpanding"));
-        this.fireEvent(v === true ? "beginExpanding" : "afterExpanding");
-        
+        var me = this;
+        me.$expanded = true;
+
+        me.fireEvent(v === true ? me.BEGIN_EXPANDING : me.AFTER_EXPANDING);
         return v;
     },
     
     expand: function() {
-        var uri = this.get("uri");
+        var me = this, uri = me.get("uri"),
+            c = console;
         
-        console.log("Additional data required, expanding from URI : " + uri + ".");
-        
-        this.setExpanding(true);
+        me.setExpanding(true);
             
         var request = Ext.Ajax.request({
             url: uri,
             success: function(response) {
-                this.setExpanding(false);
-                var fields = this.getFields();
-                var obj = Ext.JSON.decode(response.responseText);
-                for (var field in obj) {
-                    if (fields.getByKey(field) !== undefined) {
-                        console.log("setting field : " + field + " to value: " + obj[field]);
-                        this.set(field, obj[field]);
+                me.setExpanding(false);
+                var fs = me.getFields();
+                var o = Ext.JSON.decode(response.responseText);
+                
+                for (var f in o) {
+                    if (fs.getByKey(f) !== undefined) {
+                        me.set(f, o[f]);
                     }
                 }
             },
             failure: function(response) {
-                this.setExpanding(false);
-                console.error("Failed to expand the record with additional information from uri");
-                console.error(response);
+                me.setExpanding(false);
+                c.error("Failed to expand the record with additional information from uri");
+                c.error(response);
             },
-            scope: this
+            scope: me
         });
     }
 });

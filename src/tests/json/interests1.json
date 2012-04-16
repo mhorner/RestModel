@@ -1,0 +1,6 @@
+{
+    id: 1,
+    uri: 'json/interests1.json',
+    name: 'Beer',
+    comment: 'Mmmmm.... Beer!'
+}
