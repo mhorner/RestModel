@@ -21,19 +21,27 @@ yepnope({
         '../../lib/touch2/resources/css/apple.css',
         '../js/data/Uri.js',
         '../js/data/RestModel.js',
-        'js/models/TestPersonModel.js',
-        'js/models/TestInterestsModel.js',
-        'js/testsetup.js',
-        'js/testcases-UriType.js',
-        'js/testcases-RestModel.js'
+        /* unit tests */
+        'js/unit/RestModel.js',
+        /* integration style testing */
+        'js/integration/models/TestPersonModel.js',
+        'js/integration/models/TestInterestsModel.js',
+        'js/integration/testsetup.js',
+        'js/integration/testcases-UriType.js',
+        'js/integration/testcases-RestModel.js'
     ],
     complete: function() {
-        if (Test.Cases) {
-            for (var method in Test.Cases) {
-                if("function" === typeof Test.Cases[method]) {
-                    Test.Cases[method].apply();
+        function startTests(ns) {
+            if (ns) {
+                for (var method in ns) {
+                    if("function" === typeof ns[method]) {
+                        ns[method].apply();
+                    }
                 }
             }
         }
+        
+        startTests(Test.Unit);
+        startTests(Test.Cases);
     }
 });

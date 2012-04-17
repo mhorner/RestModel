@@ -1,4 +1,3 @@
-
 Ext.define('Ext.ux.data.RestModel', {
     extend: 'Ext.data.Model',
     mixin: ['Ext.mixin.Observable'],
@@ -9,14 +8,17 @@ Ext.define('Ext.ux.data.RestModel', {
     AFTER_EXPANDING: 'afterExpanding',
     
     config: {
+        uriName: "uri",
         expanding: false,
         uriExpanded: false
     },
     
     get: function(fN) {
-        var me = this, v = me.callParent(arguments);
+        var me = this,
+            v = me.callParent(arguments),
+            isUriField = me._isUriField(fN);
         
-        if (fN !== "uri" && Ext.isEmpty(v) && !me.getUriExpanded()) {
+        if (!isUriField && Ext.isEmpty(v) && !me.getUriExpanded()) {
             me.expand();
             return undefined;
         }
@@ -35,13 +37,18 @@ Ext.define('Ext.ux.data.RestModel', {
     },
     
     expand: function() {
-        var me = this, uri = me.get("uri"),
+        var me = this,
+            uriPresent = me._isUriField(me.getUriName()),
             c = console;
         
+        if (!uriPresent) {
+            return; // nothing to expand
+        }
         me.setUriExpanded(true);
         me.setExpanding(true);
-            
-        var request = Ext.Ajax.request({
+        
+        var uri = me.get(me.getUriName());
+        Ext.Ajax.request({
             url: uri,
             success: function(response) {
                 me.setExpanding(false);
@@ -61,5 +68,23 @@ Ext.define('Ext.ux.data.RestModel', {
             },
             scope: me
         });
+    },
+    
+    /* private */
+    _isUriField: function(fN) {
+        var me = this,
+            un = me.getUriName(),
+            isFieldNameUriName = fN === un,
+            returnValue = false;
+        
+        if (isFieldNameUriName) {
+            var uriField = me.getFields().getByKey(fN);
+            if (Ext.isObject(uriField)) {
+                returnValue = uriField.getType().type === Ext.data.Types.Uri.type;
+            }
+            
+        }
+
+        return returnValue;
     }
 });
