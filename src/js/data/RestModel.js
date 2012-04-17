@@ -10,13 +10,13 @@ Ext.define('Ext.ux.data.RestModel', {
     
     config: {
         expanding: false,
-        $expanded: false
+        uriExpanded: false
     },
     
     get: function(fN) {
         var me = this, v = me.callParent(arguments);
         
-        if (fN !== "uri" && Ext.isEmpty(v) && !me.$expanded) {
+        if (fN !== "uri" && Ext.isEmpty(v) && !me.getUriExpanded()) {
             me.expand();
             return undefined;
         }
@@ -29,7 +29,6 @@ Ext.define('Ext.ux.data.RestModel', {
     
     applyExpanding: function(v) {
         var me = this;
-        me.$expanded = true;
 
         me.fireEvent(v === true ? me.BEGIN_EXPANDING : me.AFTER_EXPANDING);
         return v;
@@ -39,6 +38,7 @@ Ext.define('Ext.ux.data.RestModel', {
         var me = this, uri = me.get("uri"),
             c = console;
         
+        me.setUriExpanded(true);
         me.setExpanding(true);
             
         var request = Ext.Ajax.request({
