@@ -15,10 +15,10 @@ ns = function(ns) {
 
 yepnope({
     load: [
-        'http://localhost/~matt/3rdparty/qunit/qunit/qunit.js',
-        'http://localhost/~matt/3rdparty/qunit/qunit/qunit.css',
-        'http://localhost/~matt/3rdparty/touch-2.0.0/bundled/sencha-touch-all-200.js',
-        'http://localhost/~matt/3rdparty/touch-2.0.0/bundled/resources/css/apple-200.css',
+        '../../lib/qunit/qunit.js',
+        '../../lib/qunit/qunit.css',
+        '../../lib/touch2/sencha-touch-all.js',
+        '../../lib/touch2/resources/css/apple.css',
         '../js/data/Uri.js',
         '../js/data/RestModel.js',
         'js/models/TestPersonModel.js',
