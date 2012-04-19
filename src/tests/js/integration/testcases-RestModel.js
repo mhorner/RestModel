@@ -15,11 +15,11 @@ Test.Cases.RestModel = function() {
          * which would typically be returned from the server
          */
         model = Test.Setup.createModelWithData({
-           id: id,
-           name: name,
-           email: email,
-           uri: uri
-       });
+            id: id,
+            name: name,
+            email: email,
+            uri: uri
+        });
     }
     
     test("verify model creation and inheritance of Ext.data.Model", function() {
