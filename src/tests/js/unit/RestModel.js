@@ -2,7 +2,7 @@ ns("Test.Unit");
 
 Test.Unit.RestModel = function() {
     module("RestModel Unit");
-
+    
     function defineDefaultConfigIfNotDefined(config) {
         var defaultConfig = {
             "config": {
@@ -27,7 +27,7 @@ Test.Unit.RestModel = function() {
         config = defineDefaultConfigIfNotDefined(config);
         
         var override = {
-            extend: 'Ext.ux.data.RestModel',
+            extend: 'Ext.ux.data.RestModel'
         };
         
         Ext.apply(override, config);

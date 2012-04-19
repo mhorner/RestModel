@@ -15,6 +15,9 @@ Ext.define("TestPersonModel", {
             name: 'getInterests', 
             autoLoad: true, 
             foreignKey: 'person_id'
+        },
+        proxy: {
+            type: 'rest',
         }
     }
 });
