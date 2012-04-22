@@ -8,6 +8,7 @@ Ext.define('Ext.ux.data.RestModel', {
     AFTER_EXPANDING: 'afterExpanding',
     
     config: {
+        showMask: false,
         uriName: "uri",
         expanding: false,
         uriExpanded: false
@@ -29,10 +30,22 @@ Ext.define('Ext.ux.data.RestModel', {
         return this.getExpanding();
     },
     
+    displayMasking: function(show) {
+        var me = this;
+
+        if (!me.getShowMask() || !Ext.Viewport) {
+            return;
+        }
+        
+        Ext.Viewport.setMasked({xtype: 'loadmask', hidden: !show, message: "Retrieving..."});
+    },
+    
     applyExpanding: function(v) {
         var me = this;
 
+        me.displayMasking(v === true);
         me.fireEvent(v === true ? me.BEGIN_EXPANDING : me.AFTER_EXPANDING);
+
         return v;
     },
     
@@ -49,29 +62,31 @@ Ext.define('Ext.ux.data.RestModel', {
             action: 'read'
         };
         
-        var operation = Ext.create("Ext.data.Operation", operationConfig);
-        var callback = function(operation) {
-            me.setExpanding(false);
-            if (operation.wasSuccessful()) {
-                var record = operation.getRecords()[0];
+        var op = Ext.create("Ext.data.Operation", operationConfig);
+        var callback = function(o) {
+            if (o.wasSuccessful()) {
+                var record = o.getRecords()[0];
                 this.setData(record.getData());
-                Ext.callback(config.success, scope, [this, operation]);
+                Ext.callback(config.success, scope, [this, o]);
             }
             else {
                 Ext.Logger.error("Failed to expand the record with additional information from uri");
-                Ext.callback(config.failure, scope, [null, operation]);
+                Ext.callback(config.failure, scope, [null, o]);
             }
+            me.setExpanding(false);
             Ext.callback(config.callback, scope, this);
         };
         
-        proxy.read(operation, callback, me);
+        console.log("loading data in 1000ms");
+        Ext.defer(proxy.read, 1000, proxy, [op, callback, me]);
     },
     
     expand: function() {
         var me = this,
             uriPresent = me._isUriField(me.getUriName());
         
-        if (!uriPresent) {
+        if (!uriPresent || me.uriExpanded) {
+            me.fireEvent("afterExpanding");
             return; // nothing to expand
         }
         me.setUriExpanded(true);
@@ -93,7 +108,9 @@ Ext.define('Ext.ux.data.RestModel', {
         if (isFieldNameUriName) {
             var uriField = me.getFields().getByKey(fN);
             if (Ext.isObject(uriField)) {
-                returnValue = uriField.getType().type === Ext.data.Types.Uri.type;
+                var isDefined = Ext.isDefined(me.data[un]);
+                var isUriType = uriField.getType().type === Ext.data.Types.Uri.type;
+                returnValue = isDefined && isUriType;
             }
             
         }
