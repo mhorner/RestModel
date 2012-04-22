@@ -1,6 +1,45 @@
-This is a work in progress.
-
 The intent of this RestModel implementation for Sencha Touch based applications
 is to provide a way of sending small datasets using Rest.  When a specific
 piece of information is requested and a 'uri' field is set, it will attempt
-to auto-populate the rest of the fields in the store.  
+to auto-populate the rest of the fields in the store.
+
+In many situations a Restful service will return a link to another resource.  In
+this implementation, when a URI is defined as a part of the model, it will leverage
+that URI to populate the entirety of that store.
+
+For example, a simple model like a Car may look like this.
+
+Model = [
+    year
+    model
+    make,
+    color,
+    transmission
+]
+
+The initial request for data may return the following,
+
+Record = [
+    model,
+    make,
+    uri
+]
+
+Now there are three other properties that have not been included but a URI parameter
+specified which indicates, there is more information.  Instead of creating a new
+store and model, execute the method "expand()" on the model.  The data will be
+fetched from the URI and populated into the data element of the model.  This would
+result in the following.
+
+Record = [
+    year
+    model
+    make,
+    color,
+    transmission,
+    uri (optional)
+]
+
+The uri is option here.  It can be returned by the Restful service or left out.  
+The model is smart enough to determine that the model has already been expanded and
+will not attempt to expand the model after the first expansion.
