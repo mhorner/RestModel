@@ -1,0 +1,11 @@
+{
+    "id": 5,
+    "maker_id":0,
+    "name": "Trailblazer",
+    "color": "Dark Gray",
+    "year": "2005",
+    "model": "Trailblazer",
+    "engine": "4.2L I6",
+    "transmission": "Automatic",
+    "powerMirrors": true
+}

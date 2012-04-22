@@ -1,0 +1,10 @@
+{
+    id: 4,
+    maker_id: 1,
+    name: 'Civic EX',
+    color: 'Silver',
+    year: '2000',
+    engine: '2.0L I4',
+    transmission: 'Manual',
+    powerMirrors: true
+}

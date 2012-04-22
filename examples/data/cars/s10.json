@@ -1,0 +1,11 @@
+{
+    "id": 1,
+    "maker_id":0,
+    "name": "S10",
+    "color": "Indigo Blue",
+    "year": "2003",
+    "model": "S10",
+    "engine": "4.3L V6",
+    "transmission": "Manual",
+    "powerMirrors": false
+}

@@ -1,0 +1,10 @@
+{
+    id: 0,
+    maker_id: 1,
+    name: 'Civic EX',
+    color: 'Black',
+    year: '2003',
+    engine: '1.6L I4',
+    transmission: 'Manual',
+    powerMirrors: true
+}

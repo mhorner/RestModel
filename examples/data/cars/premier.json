@@ -1,0 +1,11 @@
+{
+    "id": 3,
+    "maker_id":2,
+    "name": "Premier",
+    "color": "Gold",
+    "year": "1989",
+    "model": "Premier",
+    "engine": "3.0L V6",
+    "transmission": "Automatic",
+    "powerMirrors": true
+}

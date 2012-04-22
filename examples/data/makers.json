@@ -1,0 +1,62 @@
+[
+    {
+        id: '0',
+        name: 'Chevrolet',
+        models: [{
+            id: 0,
+            maker_id: 0,
+            name: 'Malibu',
+            year: '2006',
+            uri: 'data/cars/malibu.json'
+        }, {
+            id: 1,
+            maker_id: 0,
+            name: 'S10',
+            year: '2003',
+            uri: 'data/cars/s10.json'
+        },
+        {
+            id: 5,
+            maker_id: 0,
+            name: 'Trailblazer',
+            year: '2005',
+            uri: 'data/cars/trailblazer.json'
+        },
+        {
+            id: 6,
+            maker_id: 0,
+            name: 'Traverse',
+            year: '2009',
+            uri: 'data/cars/traverse.json'
+        }],
+    },
+    {
+        id: '1',
+        name: 'Honda',
+        models: [{
+            id: 2,
+            maker_id: 1,
+            name: 'Civic',
+            year: '2000',
+            uri: 'data/cars/civic2000.json'
+        },
+        {
+            id: 4,
+            maker_id: 1,
+            name: 'Civic',
+            year: '2003',
+            uri: 'data/cars/civic2003.json'
+        }]
+    },
+    {
+        id: '2',
+        name: 'Eagle',
+        models: [{
+            id: 3,
+            maker_id: 2,
+            name: 'Premier',
+            year: '1989',
+            uri: 'data/cars/premier.json'
+        }]
+    }
+]

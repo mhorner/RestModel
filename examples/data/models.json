@@ -1,0 +1,25 @@
+[
+    {
+        id: 0,
+        maker_id: 0,
+        name: 'Malibu',
+        uri: 'data/malibu.json'
+    }, {
+        id: 1,
+        maker_id: 0,
+        name: 'S10',
+        uri: 'data/s10.json'
+    },
+    {
+        id: 2,
+        maker_id: 1,
+        name: 'Civic',
+        uri: 'data/civic.json'
+    },
+    {
+        id: 3,
+        maker_id: 2,
+        name: 'Premier',
+        uri: 'data/premier.json'
+    }
+]
